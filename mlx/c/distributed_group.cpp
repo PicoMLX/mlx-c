@@ -41,6 +41,16 @@ mlx_distributed_init(mlx_distributed_group* res, bool strict, const char* bk) {
   }
 }
 
+extern "C" int mlx_distributed_clear_backends(void) {
+  try {
+    mlx::core::distributed::clear_backends();
+    return 0;
+  } catch (std::exception& e) {
+    mlx_error(e.what());
+    return 1;
+  }
+}
+
 extern "C" int mlx_distributed_group_rank(mlx_distributed_group group) {
   try {
     return mlx_distributed_group_get_(group).rank();
